@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nyx-s2-QjL">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Title-->
+        <scene sceneID="FyV-YQ-LRB">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="nyx-s2-QjL" customClass="SimpleText" customModule="idtp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="K8W-cl-RMl"/>
+                        <viewControllerLayoutGuide type="bottom" id="kq7-3b-iiz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UXg-nz-G3R">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5Ya-zD-dQ5">
+                                <rect key="frame" x="10" y="0.0" width="355" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="5Ya-zD-dQ5" secondAttribute="trailing" constant="10" id="83C-cl-nG3"/>
+                            <constraint firstItem="kq7-3b-iiz" firstAttribute="top" secondItem="5Ya-zD-dQ5" secondAttribute="bottom" id="Ga0-g7-Hxk"/>
+                            <constraint firstItem="5Ya-zD-dQ5" firstAttribute="leading" secondItem="UXg-nz-G3R" secondAttribute="leading" constant="10" id="ikp-aK-Ffu"/>
+                            <constraint firstItem="5Ya-zD-dQ5" firstAttribute="top" secondItem="K8W-cl-RMl" secondAttribute="bottom" id="seX-03-s9a"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wVo-Ad-XIJ"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="leC-KI-6ra">
+                        <barButtonItem key="rightBarButtonItem" title="Готово" id="BgM-s0-7oX"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="doneButtonItem" destination="BgM-s0-7oX" id="ZyI-Om-HY7"/>
+                        <outlet property="textView" destination="5Ya-zD-dQ5" id="wd6-uE-2aS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4CT-lZ-07K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="156" y="160"/>
+        </scene>
+    </scenes>
+</document>
