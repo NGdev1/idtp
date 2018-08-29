@@ -86,7 +86,8 @@ public enum Requests: Request {
                           "protocol": stringProtocol])
             
         case .sendImage(let accidentRegisterId, let photoNumber, let imageEncoded):
-            return .body(["id": String(accidentRegisterId),
+            return .body(["action": "add_image",
+                          "id": String(accidentRegisterId),
                           "photonum": String(photoNumber),
                           "image": imageEncoded])
             
