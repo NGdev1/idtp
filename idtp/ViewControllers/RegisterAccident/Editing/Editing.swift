@@ -37,7 +37,6 @@ class Editing: UITableViewController {
         
         self.tableView.tableFooterView = UIView()
         
-        dateTimePickerChanged(self)
         dateTimePicker.isHidden = true
         
         super.viewDidLoad()
@@ -66,24 +65,31 @@ class Editing: UITableViewController {
         
         if editingAccident!.dateTime != nil {
             dateTimePicker.setDate(Date(timeIntervalSince1970: editingAccident!.dateTime!.timeIntervalSince1970), animated: false)
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd.MM.YYYYг., HH:mm"
+            
+            labelDateTime.text = dateFormatter.string(from: dateTimePicker.date)
+        } else {
+            dateTimePickerChanged(self)
         }
         
         labelCarOne.text = " "
         if let participantOnePhone = editingAccident!.participantOne!.driversPhone {
             if !participantOnePhone.isEmpty {
-                labelCarOne.text = "+7" + participantOnePhone
+                labelCarOne.text = "+7 " + participantOnePhone
             }
         }
         
         labelCarTwo.text = " "
         if let participantTwoPhone = editingAccident!.participantTwo!.driversPhone {
             if !participantTwoPhone.isEmpty {
-                labelCarTwo.text = "+7" + participantTwoPhone
+                labelCarTwo.text = "+7 " + participantTwoPhone
             }
         }
         
         let countOfPhotos = editingAccident!.countOfAccidentPhotos()
-        let allPhotos = 8 + editingAccident!.additionalPhotosRequired
+        let allPhotos = 12
         if countOfPhotos != 0 {
             labelPhotos.text = "\(countOfPhotos)/\(allPhotos) Фото"
             labelPhotos.textColor = UIColor.black
@@ -103,6 +109,16 @@ class Editing: UITableViewController {
     }
     
     @IBAction func cancelAction(_ sender: Any) {
+        self.askUser("Удалить оформление?",
+                     actionNo: { _ in
+                        
+        },
+                     actionYes: { _ in
+                        
+                        AccidentService.delete(accident: self.editingAccident!)
+                        self.navigationController?.popViewController(animated: true)
+                        
+        })
     }
     
     @IBAction func dateTimePickerChanged(_ sender: Any) {
@@ -139,10 +155,13 @@ extension Editing {
             let nextStoryboard = UIStoryboard(name: "Participant", bundle: nil)
             let controller = nextStoryboard.instantiateInitialViewController() as? ParticipantViewController
             
+            controller?.editingAccident = self.editingAccident
             if indexPath.section == 2 {         //Participant One (A)
                 controller?.editingParticipant = editingAccident!.participantOne
+                controller?.editingParticipantNumber = 0
             } else {                            //Participant Two (B)
                 controller?.editingParticipant = editingAccident!.participantTwo
+                controller?.editingParticipantNumber = 1
             }
             
             self.navigationController?.pushViewController(controller!, animated: true)

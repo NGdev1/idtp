@@ -35,7 +35,7 @@ class DataCheck {
             return "Укажите номер телефона участника Б"
         }
         
-        let photosRequired = accident.additionalPhotosRequired + 18
+        let photosRequired = 22
         if accident.countOfAllPhotos() != photosRequired {
             
             return "Не хватает фотографий"
@@ -81,7 +81,7 @@ class DataCheck {
     }
     
     private static func validatePhoneNumber(_ candidate: String) -> Bool {
-        let phoneNumberRegex = "\\d{10}"
+        let phoneNumberRegex = "^\\([0-9]{3}\\)\\s[0-9]{3}-[0-9]{4}$"
         
         let isValid = NSPredicate(format: "SELF MATCHES %@", phoneNumberRegex).evaluate(with: candidate)
         

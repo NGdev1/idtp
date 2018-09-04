@@ -25,7 +25,7 @@ class TakePhotoAccident : TakePhoto {
         
         setTemplateImageAndLabel()
         
-        if let photo = editingParticipant!.getPhotoWith(typeValue: photoTypeValue!) {
+        if let photo = editingAccident!.getPhotoWith(typeValue: photoTypeValue!) {
             imageView.image = DataManager.getImageFromCash(pathName: "Images", fileName: photo.fileName!)!
             imageDidSelected = true
         } else {

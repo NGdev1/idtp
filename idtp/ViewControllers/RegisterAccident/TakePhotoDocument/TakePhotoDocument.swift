@@ -13,7 +13,7 @@ class TakePhotoDocument: TakePhoto {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let photo = editingParticipant!.getPhotoWith(typeValue: photoTypeValue!) {
+        if let photo = self.editingAccident!.getPhotoWith(typeValue: photoTypeValue!) {
             imageView.image = DataManager.getImageFromCash(pathName: "Images", fileName: photo.fileName!)!
         }
         

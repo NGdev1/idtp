@@ -11,41 +11,70 @@ import Foundation
 import CoreData
 
 enum PhotoType: Int32 {
-    case driverLicensePage1                     = 0
-    case driverLicensePage2                     = 1
-    case certificateOfVehicleRegistrationPage1  = 2
-    case certificateOfVehicleRegistrationPage2  = 3
-    case insurance                              = 4
+    case driverLicensePage1Participant1                     = 0
+    case driverLicensePage2Participant1                     = 1
+    case certificateOfVehicleRegistrationPage1Participant1  = 2
+    case certificateOfVehicleRegistrationPage2Participant1  = 3
+    case insuranceParticipant1                              = 4
     
-    case carFrontLeft                           = 5
-    case carFrontRight                          = 6
-    case carBackLeft                            = 7
-    case carBackRight                           = 8
+    case driverLicensePage1Participant2                     = 5
+    case driverLicensePage2Participant2                     = 6
+    case certificateOfVehicleRegistrationPage1Participant2  = 7
+    case certificateOfVehicleRegistrationPage2Participant2  = 8
+    case insuranceParticipant2                              = 9
     
-    case additionalPhoto                        = 9
+    case carFrontLeftParticipant1                           = 10
+    case carFrontRightParticipant1                          = 11
+    case carBackLeftParticipant1                            = 12
+    case carBackRightParticipant1                           = 13
+    
+    case carFrontLeftParticipant2                           = 14
+    case carFrontRightParticipant2                          = 15
+    case carBackLeftParticipant2                            = 16
+    case carBackRightParticipant2                           = 17
+    
+    case additionalPhoto1                                   = 18
+    case additionalPhoto2                                   = 19
+    
+    case dtpBlankPage1                                      = 20
+    case dtpBlankPage2                                      = 21
     
     public var title: String {
         switch self {
-        case .driverLicensePage1:
+        case .driverLicensePage1Participant1,
+             .driverLicensePage1Participant2:
             return "ВУ 1 стр"
-        case .driverLicensePage2:
+        case .driverLicensePage2Participant1,
+             .driverLicensePage2Participant2:
             return "ВУ 2 стр"
-        case .certificateOfVehicleRegistrationPage1:
+        case .certificateOfVehicleRegistrationPage1Participant1,
+             .certificateOfVehicleRegistrationPage1Participant2:
             return "Свид-во регистрации ТС 1 стр"
-        case .certificateOfVehicleRegistrationPage2:
+        case .certificateOfVehicleRegistrationPage2Participant1,
+             .certificateOfVehicleRegistrationPage2Participant2:
             return "Свид-во регистрации ТС 2 стр"
-        case .insurance:
+        case .insuranceParticipant1,
+             .insuranceParticipant2:
             return "Страховка"
-        case .carFrontLeft:
+        case .carFrontLeftParticipant1,
+             .carFrontLeftParticipant2:
             return "Фото авто спереди слева"
-        case .carFrontRight:
+        case .carFrontRightParticipant1,
+             .carFrontRightParticipant2:
             return "Фото авто спереди справа"
-        case .carBackLeft:
+        case .carBackLeftParticipant1,
+             .carBackLeftParticipant2:
             return "Фото авто сзади слева"
-        case .carBackRight:
+        case .carBackRightParticipant1,
+             .carBackRightParticipant2:
             return "Фото авто сзади справа"
-        case .additionalPhoto:
+        case .additionalPhoto1,
+             .additionalPhoto2:
             return "Доп. фото"
+        case .dtpBlankPage1:
+            return "Фото заполненного бланка Извещения о ДТП стр.1"
+        case .dtpBlankPage2:
+            return "Фото заполненного бланка Извещения о ДТП стр.2"
         }
     }
 }

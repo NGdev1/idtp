@@ -25,3 +25,28 @@ extension UIImage {
         return newImage!
     }
 }
+
+extension UIImage {
+    
+    static func fromBase64String(_ base64String: String) -> UIImage? {
+        let dataDecoded: Data = Data(base64Encoded: base64String, options: .ignoreUnknownCharacters)!
+        let decodedImage = UIImage(data: dataDecoded)
+        return decodedImage
+    }
+    
+    func base64String() -> String {
+        let data = UIImagePNGRepresentation(self)
+        let base64String = data!.base64EncodedString()
+        return base64String
+    }
+    
+    
+}
+
+extension UIImage{
+    var highestQualityJPEGNSData: NSData { return UIImageJPEGRepresentation(self, 1.0)! as NSData }
+    var highQualityJPEGNSData: NSData    { return UIImageJPEGRepresentation(self, 0.75)! as NSData}
+    var mediumQualityJPEGNSData: NSData  { return UIImageJPEGRepresentation(self, 0.5)! as NSData }
+    var lowQualityJPEGNSData: NSData     { return UIImageJPEGRepresentation(self, 0.25)! as NSData}
+    var lowestQualityJPEGNSData: NSData  { return UIImageJPEGRepresentation(self, 0.0)! as NSData }
+}

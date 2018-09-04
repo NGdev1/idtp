@@ -2,7 +2,7 @@
 //  Accident+CoreDataProperties.swift
 //  idtp
 //
-//  Created by Apple on 03.04.2018.
+//  Created by Μιχαήλ Αντρέγιεφ on 04.09.2018.
 //  Copyright © 2018 md. All rights reserved.
 //
 //
@@ -17,32 +17,31 @@ extension Accident {
         return NSFetchRequest<Accident>(entityName: "Accident")
     }
 
-    @NSManaged public var additionalPhotosRequired: Int32
     @NSManaged public var dateTime: NSDate?
     @NSManaged public var gibddResponce: String?
+    @NSManaged public var isSmsSent: Bool
     @NSManaged public var registerId: Int32
     @NSManaged public var stateValue: Int32
-    @NSManaged public var isSmsSent: Bool
-    @NSManaged public var additionalPhotos: NSSet?
+    @NSManaged public var photos: NSSet?
     @NSManaged public var participantOne: Participant?
     @NSManaged public var participantTwo: Participant?
     @NSManaged public var place: Place?
 
 }
 
-// MARK: Generated accessors for additionalPhotos
+// MARK: Generated accessors for photos
 extension Accident {
 
-    @objc(addAdditionalPhotosObject:)
-    @NSManaged public func addToAdditionalPhotos(_ value: Photo)
+    @objc(addPhotosObject:)
+    @NSManaged public func addToPhotos(_ value: Photo)
 
-    @objc(removeAdditionalPhotosObject:)
-    @NSManaged public func removeFromAdditionalPhotos(_ value: Photo)
+    @objc(removePhotosObject:)
+    @NSManaged public func removeFromPhotos(_ value: Photo)
 
-    @objc(addAdditionalPhotos:)
-    @NSManaged public func addToAdditionalPhotos(_ values: NSSet)
+    @objc(addPhotos:)
+    @NSManaged public func addToPhotos(_ values: NSSet)
 
-    @objc(removeAdditionalPhotos:)
-    @NSManaged public func removeFromAdditionalPhotos(_ values: NSSet)
+    @objc(removePhotos:)
+    @NSManaged public func removeFromPhotos(_ values: NSSet)
 
 }

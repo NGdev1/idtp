@@ -20,13 +20,14 @@ class NotificationsHandler {
         
         editingAccident = AccidentService.getEditingAccident()
         
-        if msgType == 1 {
-            
-            handleSuccessNotification(msgBody: msgBody)
-        } else if msgType == 2 {
-            
-            handleRemakeAccidentNotification(msgValues: msgValues, msgExtra: msgExtra)
-        }
+//        if msgType == 1 {
+        
+        handleSuccessNotification(msgBody: msgBody)
+
+//        } else if msgType == 2 {
+//
+//            handleRemakeAccidentNotification(msgValues: msgValues, msgExtra: msgExtra)
+//        }
         
         NotificationCenter.default.post(name: .notificationProcessed, object: nil)
     }
@@ -36,20 +37,20 @@ class NotificationsHandler {
         editingAccident?.gibddResponce = msgBody
     }
     
-    func handleRemakeAccidentNotification(msgValues: String?,
-                                          msgExtra : String){
-        editingAccident?.state = .editing
-        
-        var extra = msgExtra.components(separatedBy: ";")
-        
-        let additionalPhotosCount = extra[0]
-        editingAccident?.additionalPhotosRequired = Int32(additionalPhotosCount)!
-        
-        let photosToRemake = extra[1]
-        let photoTypeValuesToRemake = photosToRemake.components(separatedBy: ",")
-        
-        for index in photoTypeValuesToRemake {
-            editingAccident?.deletePhoto(with: Int(index)!)
-        }
-    }
+//    func handleRemakeAccidentNotification(msgValues: String?,
+//                                          msgExtra : String){
+//        editingAccident?.state = .editing
+//
+//        var extra = msgExtra.components(separatedBy: ";")
+//
+//        let additionalPhotosCount = extra[0]
+//        editingAccident?.additionalPhotosRequired = Int32(additionalPhotosCount)!
+//
+//        let photosToRemake = extra[1]
+//        let photoTypeValuesToRemake = photosToRemake.components(separatedBy: ",")
+//
+//        for index in photoTypeValuesToRemake {
+//            editingAccident?.deletePhoto(with: Int(index)!)
+//        }
+//    }
 }

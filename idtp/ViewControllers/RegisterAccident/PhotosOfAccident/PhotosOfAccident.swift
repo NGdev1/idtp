@@ -33,22 +33,18 @@ class PhotosOfAccident: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        var numberOfSections = 2
-        
-        if editingAccident!.additionalPhotosRequired > 0 {
-            numberOfSections += 1
-        }
-        
-        return numberOfSections
+        return 4
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return "Фотографии участника А"
-        } else if section == 1{
+        } else if section == 1 {
             return "Фотографии участника Б"
-        } else {
+        } else if section == 2 {
             return "Дополнительные фотографии"
+        } else {
+            return "Фото заполненного бланка Извещения о ДТП"
         }
     }
     
@@ -56,32 +52,54 @@ class PhotosOfAccident: UITableViewController {
         if section == 0 || section == 1 {
             return 4
         } else {
-            return Int(editingAccident!.additionalPhotosRequired)
+            return 2
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoCell") as! PhotoCell
         
-        let currentParticipant = indexPath.section == 0 ? editingAccident!.participantOne : editingAccident!.participantTwo
+        var photoTypeValue = 0
+        if indexPath.section == 0 || indexPath.section == 1 {
+            photoTypeValue = 10 + indexPath.section * 4 + indexPath.row
+        } else if indexPath.section == 2 {
+            photoTypeValue = 18 + indexPath.row
+        } else if indexPath.section == 3 {
+            photoTypeValue = 20 + indexPath.row
+        }
         
-        if currentParticipant!.getPhotoWith(typeValue: indexPath.row + 5) != nil {
+        if editingAccident!.getPhotoWith(typeValue: photoTypeValue) != nil {
             cell.imageViewIndicator.isHidden = false
         } else {
             cell.imageViewIndicator.isHidden = true
         }
         
-        cell.textLabel!.text = photosNames[indexPath.row]
+        cell.textLabel!.text = PhotoType(rawValue: Int32(photoTypeValue))!.title
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let nextVc = TakePhotoAccident()
-        nextVc.editingParticipant = indexPath.section == 0 ? editingAccident!.participantOne : editingAccident!.participantTwo
-        nextVc.title = indexPath.section == 0 ? "Участник А" : "Участник Б"
-        nextVc.photoTypeValue = indexPath.row + 5
-        navigationController!.pushViewController(nextVc, animated: true)
+        var nextVc: TakePhoto?
+        
+        var photoTypeValue = 0
+        if indexPath.section == 0 || indexPath.section == 1 {
+            nextVc = TakePhotoAccident()
+            nextVc!.title = indexPath.section == 0 ? "Участник А" : "Участник Б"
+            photoTypeValue = 10 + indexPath.section * 4 + indexPath.row
+        } else if indexPath.section == 2 {
+            nextVc = TakePhotoDocument()
+            nextVc!.title = "Доп. Фото"
+            photoTypeValue = 18 + indexPath.row
+        } else if indexPath.section == 3 {
+            nextVc = TakePhotoDocument()
+            nextVc!.title = "Фото Европротокола"
+            photoTypeValue = 20 + indexPath.row
+        }
+        
+        nextVc!.editingAccident = self.editingAccident
+        nextVc!.photoTypeValue = photoTypeValue
+        navigationController!.pushViewController(nextVc!, animated: true)
         
         self.tableView.deselectRow(at: indexPath, animated: true)
     }

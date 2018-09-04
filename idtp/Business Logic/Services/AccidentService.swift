@@ -74,26 +74,9 @@ class AccidentService {
     }
     
     static func delete(accident: Accident) {        
-        if accident.participantOne != nil {
-            if accident.participantOne!.photos != nil {
-                for photo in accident.participantOne!.photos! {
-                    DataManager.deleteImageFromCash(pathName: "Images",
-                                                    fileName: (photo as! Photo).fileName!)
-                }
-            }
-        }
-        
-        if accident.participantTwo != nil {
-            if accident.participantTwo!.photos != nil {
-                for photo in accident.participantTwo!.photos! {
-                    DataManager.deleteImageFromCash(pathName: "Images",
-                                                    fileName: (photo as! Photo).fileName!)
-                }
-            }
-        }
-        
-        if accident.additionalPhotos != nil {
-            for photo in accident.additionalPhotos! {
+
+        if accident.photos != nil {
+            for photo in accident.photos! {
                 DataManager.deleteImageFromCash(pathName: "Images",
                                                 fileName: (photo as! Photo).fileName!)
             }

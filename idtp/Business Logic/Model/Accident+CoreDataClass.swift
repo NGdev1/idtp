@@ -29,28 +29,73 @@ public class Accident: NSManagedObject {
         }
     }
     
+    func setPhotoWith(typeValue : Int, image: UIImage) {
+        
+        self.deletePhoto(with: typeValue)
+        
+        let photo = PhotoService.createPhoto()
+        self.addToPhotos(photo)
+        
+        let fileName = String(NSUUID().uuidString + ".jpeg")
+        let imageData = UIImageJPEGRepresentation(image, 1.0)!
+        
+        DataManager.saveImageToCash(pathName: "Images",
+                                    fileName: fileName,
+                                    data: imageData,
+                                    maxWidth: 512)
+        
+        photo.fileName = fileName
+        photo.typeValue = Int32(typeValue)
+        PersistenceService.saveContext()
+    }
+    
+    func getPhotoWith(typeValue : Int) -> Photo? {
+        
+        guard self.photos != nil else {
+            return nil
+        }
+        
+        for photoItem in self.photos! {
+            let photo = photoItem as! Photo
+            if photo.typeValue == typeValue {
+                return photo
+            }
+        }
+        
+        return nil
+    }
+    
+    func printPhotos() {
+        guard self.photos != nil else {
+            return
+        }
+        
+        for photoItem in self.photos! {
+            let photo = photoItem as! Photo
+            print(photo.fileName ?? "")
+        }
+    }
+    
     func countOfSentPhotos() -> Int {
         var countOfPhotos = 0
         
-        if self.participantOne != nil {
-            for photo in self.participantOne!.photos!.allObjects as! [Photo] {
+        if self.photos != nil {
+            for photo in self.photos!.allObjects as! [Photo] {
                 if photo.isSent {
                     countOfPhotos += 1
                 }
             }
         }
         
-        if self.participantTwo != nil {
-            for photo in self.participantTwo!.photos!.allObjects as! [Photo] {
-                if photo.isSent {
-                    countOfPhotos += 1
-                }
-            }
-        }
+        return countOfPhotos
+    }
+    
+    func countOfAccidentPhotos() -> Int {
+        var countOfPhotos = 0
         
-        if self.additionalPhotos != nil {
-            for photo in self.additionalPhotos!.allObjects as! [Photo] {
-                if photo.isSent {
+        if self.photos != nil {
+            for photo in self.photos!.allObjects as! [Photo] {
+                if photo.typeValue > 9 {
                     countOfPhotos += 1
                 }
             }
@@ -60,51 +105,11 @@ public class Accident: NSManagedObject {
     }
     
     func countOfAllPhotos() -> Int {
-        var countOfPhotos = 0
-        
-        if self.participantOne != nil {
-            if self.participantOne!.photos != nil {
-                countOfPhotos += self.participantOne!.photos!.count
-            }
+        guard let photos = self.photos else {
+            return 0
         }
         
-        if self.participantTwo != nil {
-            if self.participantTwo!.photos != nil {
-                countOfPhotos += self.participantTwo!.photos!.count
-            }
-        }
-        
-        if self.additionalPhotos != nil {
-            countOfPhotos += self.additionalPhotos!.count
-        }
-        
-        return countOfPhotos
-    }
-    
-    func countOfAccidentPhotos() -> Int {
-        var countOfPhotos = 0
-        
-        if self.participantOne != nil {
-            for photo in self.participantOne!.photos!.allObjects as! [Photo] {
-                if photo.typeValue > 4 {
-                    countOfPhotos += 1
-                }
-            }
-        }
-        
-        if self.participantTwo != nil {
-            for photo in self.participantTwo!.photos!.allObjects as! [Photo] {
-                if photo.typeValue > 4 {
-                    countOfPhotos += 1
-                }
-            }
-        }
-        
-        if self.additionalPhotos != nil {
-            countOfPhotos += self.additionalPhotos!.count
-        }
-        
-        return countOfPhotos
+        return photos.count
     }
     
     public override func awakeFromInsert() {
@@ -112,24 +117,9 @@ public class Accident: NSManagedObject {
     }
     
     public func getUnsentPhoto() -> Photo? {
-        if self.participantOne != nil {
-            for photo in self.participantOne!.photos!.allObjects as! [Photo] {
-                if photo.isSent == false {
-                    return photo
-                }
-            }
-        }
         
-        if self.participantTwo != nil {
-            for photo in self.participantTwo!.photos!.allObjects as! [Photo] {
-                if photo.isSent == false {
-                    return photo
-                }
-            }
-        }
-        
-        if self.additionalPhotos != nil {
-            for photo in self.additionalPhotos!.allObjects as! [Photo] {
+        if self.photos != nil {
+            for photo in self.photos!.allObjects as! [Photo] {
                 if photo.isSent == false {
                     return photo
                 }
@@ -139,40 +129,12 @@ public class Accident: NSManagedObject {
         return nil
     }
     
-    public func deletePhoto(with index: Int){
-        if index < 9 {
-            if self.participantOne != nil {
-                for photo in self.participantOne!.photos!.allObjects as! [Photo] {
-                    if photo.typeValue == index {
-                        DataManager.deleteImageFromCash(pathName: "Images",
-                                                        fileName: photo.fileName!)
-                        PersistenceService.context.delete(photo)
-                        return
-                    }
-                }
-            }
-        } else if index < 18 {
-            if self.participantTwo != nil {
-                for photo in self.participantTwo!.photos!.allObjects as! [Photo] {
-                    if photo.typeValue == index {
-                        DataManager.deleteImageFromCash(pathName: "Images",
-                                                        fileName: photo.fileName!)
-                        PersistenceService.context.delete(photo)
-                        return
-                    }
-                }
-            }
-        } else {
-            if self.additionalPhotos != nil {
-                for photo in self.additionalPhotos!.allObjects as! [Photo] {
-                    if photo.typeValue == index {
-                        DataManager.deleteImageFromCash(pathName: "Images",
-                                                        fileName: photo.fileName!)
-                        PersistenceService.context.delete(photo)
-                        return
-                    }
-                }
-            }
+    public func deletePhoto(with typeValue: Int){
+        
+        if let photo = getPhotoWith(typeValue: typeValue) {
+            DataManager.deleteImageFromCash(pathName: "Images",
+                                            fileName: photo.fileName!)
+            PersistenceService.context.delete(photo)
         }
     }
 }

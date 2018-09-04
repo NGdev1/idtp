@@ -2,7 +2,7 @@
 //  Photo+CoreDataProperties.swift
 //  idtp
 //
-//  Created by Apple on 27.03.2018.
+//  Created by Μιχαήλ Αντρέγιεφ on 04.09.2018.
 //  Copyright © 2018 md. All rights reserved.
 //
 //

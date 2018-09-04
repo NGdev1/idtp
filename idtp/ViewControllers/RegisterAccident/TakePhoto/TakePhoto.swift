@@ -15,7 +15,7 @@ class TakePhoto: UIViewController, UIImagePickerControllerDelegate, UINavigation
     let imagePicker = UIImagePickerController()
     var pickedImage: UIImage?
     
-    var editingParticipant : Participant?
+    var editingAccident : Accident?
     var photoTypeValue : Int?
     
     var imageView : UIImageView = {
@@ -116,9 +116,7 @@ class TakePhoto: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     //action on photo is selected
     func imageDidSelected(){
-        self.editingParticipant!.printPhotos()
-        
-        self.editingParticipant!.setPhotoWith(
+        self.editingAccident!.setPhotoWith(
             typeValue: self.photoTypeValue!,
             image: self.pickedImage!)
         _ = self.navigationController?.popViewController(animated: false)

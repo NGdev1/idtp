@@ -43,13 +43,13 @@ class APIService: NSObject {
     }
     
     public func sendImage(accidentRegisterId: Int, photo: Photo, completionHandler: @escaping (Int?, Error?) -> Void) -> URLSessionDataTask {
-        let image = DataManager.getDataFromCash(pathName: "Images", fileName: photo.fileName!)
-        let strBase64: String = image!.base64EncodedString()
-        let imageEncoded = strBase64.percentEscapeString()
+        let imageData = DataManager.getDataFromCash(pathName: "Images", fileName: photo.fileName!)
+        let image = UIImage(data: imageData!)
+        let strBase64: String = image!.base64String()
         
         let operation = SendImageOperation(accidentRegisterId: accidentRegisterId,
                                            photoNumber: Int(photo.typeValue),
-                                           imageEncoded: imageEncoded)
+                                           imageEncoded: strBase64)
         
         return operation.execute(in: dispatcherMain, completionHandler: completionHandler)
     }

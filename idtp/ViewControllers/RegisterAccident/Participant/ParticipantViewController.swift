@@ -23,6 +23,8 @@ class ParticipantViewController: UITableViewController {
     var photoIndicators = [UIImageView]()
     
     var editingParticipant : Participant?
+    var editingAccident : Accident?
+    var editingParticipantNumber = 0
     var selectedPhone : String?
     
     var childVcDelegate : SecondVCDelegate?
@@ -70,7 +72,7 @@ class ParticipantViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         for i in 0...4 {
-            if editingParticipant!.getPhotoWith(typeValue: i) == nil {
+            if editingAccident!.getPhotoWith(typeValue: i + editingParticipantNumber * 5) == nil {
                 photoIndicators[i].isHidden = true
             } else {
                 photoIndicators[i].isHidden = false
@@ -107,20 +109,9 @@ class ParticipantViewController: UITableViewController {
         
         let nextVC = TakePhotoDocument()
         
-        if indexPath.row == 0 {
-            nextVC.title = "ВУ 1 стр"
-        } else if indexPath.row == 1 {
-            nextVC.title = "ВУ 2 стр"
-        } else if indexPath.row == 2 {
-            nextVC.title = "Свид-во рег.ТС"
-        } else if indexPath.row == 3 {
-            nextVC.title = "Свид-во рег.ТС"
-        } else if indexPath.row == 4 {
-            nextVC.title = "Страховка"
-        }
-        
-        nextVC.editingParticipant = self.editingParticipant
-        nextVC.photoTypeValue = indexPath.row
+        nextVC.photoTypeValue = indexPath.row + editingParticipantNumber * 5
+        nextVC.title = PhotoType(rawValue: Int32(nextVC.photoTypeValue!))!.title
+        nextVC.editingAccident = self.editingAccident
         
         self.navigationController?.pushViewController(nextVC, animated: true)
         
@@ -129,11 +120,14 @@ class ParticipantViewController: UITableViewController {
 }
 
 extension ParticipantViewController : UITextFieldDelegate {
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let limitCount = 10
         
         let nsString = NSString(string: textField.text!)
         let newText = nsString.replacingCharacters(in: range, with: string)
-        return  newText.count <= limitCount
+        
+        textField.text = newText.applyPatternOnNumbers(pattern: "(###) ###-####", replacmentCharacter: "#")
+        
+        return false
     }
 }

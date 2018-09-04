@@ -17,12 +17,11 @@ class Opening: UIViewController {
     var editingAccident : Accident?
     
     override func viewDidLoad() {
-        editingAccident = AccidentService.getEditingAccident()
-        
         super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.editingAccident = AccidentService.getEditingAccident()
         
         if editingAccident != nil {
             changeInterfaceToContinue(accidentState: editingAccident!.state)
