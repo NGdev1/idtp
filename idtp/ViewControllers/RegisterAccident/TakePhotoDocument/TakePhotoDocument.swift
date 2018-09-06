@@ -9,12 +9,14 @@
 import UIKit
 
 class TakePhotoDocument: TakePhoto {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let photo = self.editingAccident!.getPhotoWith(typeValue: photoTypeValue!) {
             imageView.image = DataManager.getImageFromCash(pathName: "Images", fileName: photo.fileName!)!
+        } else if imageSample != nil {
+            imageView.image = imageSample
         }
         
         changeImageExistance()

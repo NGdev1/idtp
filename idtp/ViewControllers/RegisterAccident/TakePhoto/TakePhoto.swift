@@ -14,6 +14,7 @@ class TakePhoto: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     let imagePicker = UIImagePickerController()
     var pickedImage: UIImage?
+    var imageSample: UIImage?
     
     var editingAccident : Accident?
     var photoTypeValue : Int?

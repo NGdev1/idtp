@@ -116,7 +116,7 @@ class Editing: UITableViewController {
                      actionYes: { _ in
                         
                         AccidentService.delete(accident: self.editingAccident!)
-                        self.navigationController?.popViewController(animated: true)
+                        self.navigationController?.popToRootViewController(animated: true)
                         
         })
     }

@@ -19,6 +19,7 @@ class PhotoCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.textLabel?.numberOfLines = 2
         self.addSubview(imageViewIndicator)
         self.addSubview(textLabel!)
         self.accessoryType = .disclosureIndicator
@@ -31,6 +32,9 @@ class PhotoCell: UITableViewCell {
     
     override func updateConstraints() {
         self.removeConstraints(self.constraints)
+        
+        textLabel!.topAnchor.constraint(equalTo: self.topAnchor, constant: 7).isActive = true
+        textLabel!.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 7).isActive = true
         
         imageViewIndicator.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -38).isActive = true
         imageViewIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true

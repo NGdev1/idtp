@@ -92,13 +92,13 @@ class TakePhotoAccident : TakePhoto {
     
     func setTemplateImageAndLabel(){
         switch photoTypeValue! {
-        case 5:
+        case 10, 14:
             imageView.image = #imageLiteral(resourceName: "CameraPosition1")
             labelPhotoDescription.text = "Фото спереди слева"
-        case 6:
+        case 11, 15:
             imageView.image = #imageLiteral(resourceName: "CameraPosition2")
             labelPhotoDescription.text = "Фото спереди справа"
-        case 7:
+        case 12, 16:
             imageView.image = #imageLiteral(resourceName: "CameraPosition3")
             labelPhotoDescription.text = "Фото сзади слева"
         default:

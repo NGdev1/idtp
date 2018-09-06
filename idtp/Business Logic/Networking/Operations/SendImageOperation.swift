@@ -35,7 +35,7 @@ class SendImageOperation: NetworkingOperation {
                     do {
                         let json = try JSON(data: data!)
                         
-                        let code = json["id"].intValue
+                        let code = json["result"].intValue
                         
                         completionHandler(code, nil)
                     } catch {

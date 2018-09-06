@@ -10,12 +10,7 @@ import Foundation
 
 extension String {
     func percentEscapeString() -> String {
-        let result = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                             self as CFString!,
-                                                             nil,
-                                                             ":/?@!$&'()*+,;=" as CFString!,
-                                                             CFStringBuiltInEncodings.UTF8.rawValue)
-        return (result as! String)
+        return self.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
     }
 }
 

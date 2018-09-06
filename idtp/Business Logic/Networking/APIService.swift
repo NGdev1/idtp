@@ -8,7 +8,7 @@ protocol APIServiceSharier {
 
 class APIService: NSObject {
     
-    public static let baseURLServer = "http://sotagosplat.ru/idtp"
+    public static let baseURLServer = "http://178.206.224.220/evroprotocol/api/"
     public static let baseURLYandexGeocoding = "https://geocode-maps.yandex.ru/1.x"
     //public static let accessKey = ""
     
@@ -44,8 +44,7 @@ class APIService: NSObject {
     
     public func sendImage(accidentRegisterId: Int, photo: Photo, completionHandler: @escaping (Int?, Error?) -> Void) -> URLSessionDataTask {
         let imageData = DataManager.getDataFromCash(pathName: "Images", fileName: photo.fileName!)
-        let image = UIImage(data: imageData!)
-        let strBase64: String = image!.base64String()
+        let strBase64: String = imageData!.base64EncodedString()
         
         let operation = SendImageOperation(accidentRegisterId: accidentRegisterId,
                                            photoNumber: Int(photo.typeValue),

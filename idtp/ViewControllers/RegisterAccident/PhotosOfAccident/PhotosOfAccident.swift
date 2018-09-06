@@ -56,6 +56,15 @@ class PhotosOfAccident: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+//        if indexPath.section == 3 {
+//            return 60
+//        } else {
+//            return self.tableView.estimatedRowHeight
+//        }
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoCell") as! PhotoCell
         
@@ -93,7 +102,8 @@ class PhotosOfAccident: UITableViewController {
             photoTypeValue = 18 + indexPath.row
         } else if indexPath.section == 3 {
             nextVc = TakePhotoDocument()
-            nextVc!.title = "Фото Европротокола"
+            nextVc!.title = "Фото"
+            indexPath.row == 0 ? (nextVc!.imageSample = #imageLiteral(resourceName: "dtpBlankSamplePage1")) : (nextVc!.imageSample = #imageLiteral(resourceName: "dtpBlankSamplePage2"))
             photoTypeValue = 20 + indexPath.row
         }
         
