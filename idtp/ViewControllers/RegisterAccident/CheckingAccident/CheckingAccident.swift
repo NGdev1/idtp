@@ -42,7 +42,7 @@ class CheckingAccident: UIViewController, ProgressDelegate {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        currentTask?.cancel()
+        //currentTask?.cancel()
     }
     
     @objc func sendPhotosIfNeed() {

@@ -67,8 +67,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, APIServiceSharier, UNUser
                                            msgValues: msgValues,
                                            msgExtra: msgExtra)
         
-        let rootViewController = self.window!.rootViewController
-        rootViewController?.navigationController?.popToRootViewController(animated: true)
+        if let rootViewController = self.window?.rootViewController {
+            rootViewController.navigationController?.popToRootViewController(animated: true)
+        }
         
         // Change this to your preferred presentation option
         completionHandler([.alert, .badge, .sound])
