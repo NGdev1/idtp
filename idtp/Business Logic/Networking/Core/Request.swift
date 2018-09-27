@@ -45,4 +45,5 @@ public enum HTTPMethod: String {
 public enum RequestParams {
     case body(_ : [String: Any]?)
     case url(_ : [String: Any]?)
+    case bodyUrlencoded(_ : [String: Any]?)
 }

@@ -40,7 +40,7 @@ class GetLocation: UIViewController, CLLocationManagerDelegate, YMKMapViewDelega
         } else {
             if (CLLocationManager.locationServicesEnabled()) {
                 locationManager.desiredAccuracy = kCLLocationAccuracyBest
-                locationManager.requestAlwaysAuthorization()
+                locationManager.requestWhenInUseAuthorization()
                 locationManager.startUpdatingLocation()
                 locationManager.distanceFilter = 50
             }

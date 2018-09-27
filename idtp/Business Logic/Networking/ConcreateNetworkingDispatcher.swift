@@ -105,6 +105,23 @@ class ConcreateNetworkingDispatcher: NetworkingDispatcher {
             } else {
                 throw NetworkErrors.badInput
             }
+        case .bodyUrlencoded(let params):
+            if params == nil {
+                break
+            }
+            
+            if let params = params as? [String: String] { // just to simplify
+                let query_params = params.map({ (element) -> URLQueryItem in
+                    return URLQueryItem(name: element.key, value: element.value)
+                })
+                guard var components = URLComponents(string: fullURL) else {
+                    throw NetworkErrors.badInput
+                }
+                components.queryItems = query_params
+                urlRequest.httpBody = components.query?.data(using: .utf8)
+            } else {
+                throw NetworkErrors.badInput
+            }
         }
         
         // Add headers from enviornment and request

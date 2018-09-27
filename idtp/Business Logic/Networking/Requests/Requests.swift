@@ -86,7 +86,7 @@ public enum Requests: Request {
                           "protocol": stringProtocol])
             
         case .sendImage(let accidentRegisterId, let photoNumber, let imageEncoded):
-            return .body(["action": "add_image",
+            return .bodyUrlencoded(["action": "add_image",
                           "id": String(accidentRegisterId),
                           "photonum": String(photoNumber),
                           "image": imageEncoded])
@@ -106,7 +106,7 @@ public enum Requests: Request {
     }
     
     public var headers: [String : Any]? {
-        return [:]
+        return ["Content-Type": "application/x-www-form-urlencoded"]
     }
     
     public var dataType: DataType {
