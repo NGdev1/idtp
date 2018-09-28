@@ -281,6 +281,7 @@
 		18FFFF772077CA0E0078749C /* pdd637.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = pdd637.html; sourceTree = "<group>"; };
 		18FFFF782077CA0E0078749C /* pdd654.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = pdd654.html; sourceTree = "<group>"; };
 		18FFFF792077CA0E0078749C /* pdd644.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = pdd644.html; sourceTree = "<group>"; };
+		6B7FA1BC215E5ECC005046A8 /* idtp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = idtp.entitlements; sourceTree = "<group>"; };
 		D049E3A128BD18DECA57CC27 /* Pods-idtp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-idtp.release.xcconfig"; path = "Pods/Target Support Files/Pods-idtp/Pods-idtp.release.xcconfig"; sourceTree = "<group>"; };
 		FADD9906E214E2E5A5129A68 /* Pods_idtp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_idtp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -361,6 +362,7 @@
 		180382A1206C042B0004E456 /* MainFiles */ = {
 			isa = PBXGroup;
 			children = (
+				6B7FA1BC215E5ECC005046A8 /* idtp.entitlements */,
 				1801F829206E6484001290A3 /* GoogleService-Info.plist */,
 				18ECF6422036D49600F1ED38 /* AppDelegate.swift */,
 				18ECF64E2036D49600F1ED38 /* LaunchScreen.storyboard */,
@@ -832,6 +834,11 @@
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1182,6 +1189,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = idtp/MainFiles/idtp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2SSJ7T48N4;
 				INFOPLIST_FILE = "$(SRCROOT)/idtp/MainFiles/Info.plist";
@@ -1230,6 +1239,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gallery-mobile.idtp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "idtp/MainFiles/idtp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -1243,6 +1253,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = idtp/MainFiles/idtp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2SSJ7T48N4;
 				INFOPLIST_FILE = "$(SRCROOT)/idtp/MainFiles/Info.plist";
@@ -1291,6 +1303,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gallery-mobile.idtp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "idtp/MainFiles/idtp-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
