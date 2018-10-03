@@ -80,16 +80,16 @@ public enum Requests: Request {
             let stringProtocol =
                 jsonProtocol.rawString(String.Encoding.utf8, options: [.prettyPrinted])!.percentEscapeString()
             return .url(["action": "for_checking",
-                          "type_check": "1",
-                          "DeviceID": deviceId,
-                          "TokenFCM": tokenFCM,
-                          "protocol": stringProtocol])
+                         "type_check": "1",
+                         "DeviceID": deviceId,
+                         "TokenFCM": tokenFCM,
+                         "protocol": stringProtocol])
             
         case .sendImage(let accidentRegisterId, let photoNumber, let imageEncoded):
             return .bodyUrlencoded(["action": "add_image",
-                          "id": String(accidentRegisterId),
-                          "photonum": String(photoNumber),
-                          "image": imageEncoded])
+                                    "id": String(accidentRegisterId),
+                                    "photonum": String(photoNumber),
+                                    "image": imageEncoded])
             
         case .fixProtocol(let accident, let codeA, let codeB):
             let jsonProtocol : JSON = [
@@ -106,7 +106,12 @@ public enum Requests: Request {
     }
     
     public var headers: [String : Any]? {
-        return ["Content-Type": "application/x-www-form-urlencoded"]
+        switch self {
+        case .sendImage:
+            return ["Content-Type": "application/x-www-form-urlencoded"]
+        default:
+            return [:]
+        }
     }
     
     public var dataType: DataType {
